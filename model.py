@@ -1,7 +1,9 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, DateTime
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship, backref
 
 ENGINE = None
 Session = None
@@ -18,6 +20,9 @@ class User(Base):
     age = Column(Integer, nullable=True)
     zipcode = Column(String(15), nullable=True)
 
+    # ratings relationship with User is defined in Rating class
+
+
 class Movie(Base):
     __tablename__= "movies"
 
@@ -26,14 +31,19 @@ class Movie(Base):
     released_at = Column(DateTime, nullable=True)
     imdb_url = Column(String(150), nullable=False)
 
+    # rating relationship with Movie is defined in Rating class
+
 class Rating(Base):
     __tablename__= "ratings"    
 
     id = Column(Integer, primary_key=True)
-    movie_id = Column(Integer, nullable=False)
-    user_id = Column(Integer, nullable=False)
+    movie_id = Column(Integer, ForeignKey('movies.id'))
+    user_id = Column(Integer, ForeignKey('users.id'))
     rating = Column(Integer, nullable=False)
 
+    # define relationships of User class with ratings AND Movie class with ratings 
+    user = relationship("User", backref=backref("ratings", order_by=id))
+    movie = relationship("Movie", backref=backref("ratings", order_by=id))
 ### End class declarations
 
 def connect():
