@@ -5,7 +5,15 @@ app.secret_key = "maryhasalittlelamb?!....."
 
 @app.route("/my_rating")
 def my_rating():
+
     return render_template("my_rating.html")
+
+
+@app.route("/movie_list_for_rating")
+def movie_list_for_rating():
+    movie_titles = model.session.query(model.Movie).limit(10).all()
+
+    return render_template("movie_list_for_rating.html", movies=movie_titles)
 
 @app.route("/user/<user_id>")
 def user_movies_ratings(user_id):

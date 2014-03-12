@@ -1,0 +1,10 @@
+<html>
+<body>
+    
+    <h2>List of all movies for review</h2>
+    <p> Click on the movies to give a rating</p>
+    {% for movie in movies %}
+    <p><a href= "/my_rating">{{ movie.name }}</a></p>
+    {% endfor %}
+</body>
+</html>
