@@ -1,5 +1,7 @@
 <html>
-<body>
-<p>Coming Soon!</p>
+<body>  
+{% for movie in movies %}
+<p>Movie title: {{ movie.name}} Rating: {{movie.rating}}</P> 
+{% endfor %}
 </body>
 </html>

@@ -1,5 +1,12 @@
 <html>
-{% for user in users %}
-<h2>User {{ user.id }}, age {{ user.age}} has {{ user.ratings|length}} ratings</h2>
-{% endfor %}
+<body>
+    <form action="/my_rating" method="GET">
+    <input type="submit" value="Review some movies">
+    </form>
+    <h2>List of all users</h2>
+    <p> Click on the user to view their ratings for different movies</p>
+    {% for user in users %}
+    <p><a href= "/user/{{ user.id }}">User {{ user.id }}</a> age {{ user.age}} has {{ user.ratings|length}} ratings</p>
+    {% endfor %}
+</body>
 </html>
